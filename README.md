@@ -5,7 +5,7 @@ This package is an unofficial simple PHP SDK for Poste Delivery Business Rest AP
 ## Installing
 Install with composer
 ```shell
-composer require dinja-srl/poste-delivery-business-sdk
+composer require dinja/poste-delivery-business-sdk
 ```
 
 ## Features
