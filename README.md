@@ -1,6 +1,6 @@
 # Poste Delivery Business PHP SDK
 
-This package is an unofficial simple PHP SDK for Poste Delivery Business Rest API services.
+This package is an unofficial simple PHP SDK for Poste Delivery Business Rest API services v.1.8.1.
 
 ## Installing
 Install with composer
