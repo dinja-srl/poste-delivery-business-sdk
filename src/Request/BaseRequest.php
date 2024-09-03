@@ -35,8 +35,12 @@ abstract class BaseRequest implements RequestInterface
         $body = $response->getBody();
         $body = json_decode($response->getBody());
 
-        $this->accessToken = $body->access_token;
-        $this->clientId = $clientId;
+        if(isset($body->access_token)) {
+            $this->accessToken = $body->access_token;
+            $this->clientId = $clientId;
+        } else {
+            throw new InvalidJsonException($body->error_description, $body->error_codes[0]);
+        }
     }
 
     /**
