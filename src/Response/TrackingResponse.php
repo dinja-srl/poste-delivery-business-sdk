@@ -27,7 +27,7 @@ class TrackingResponse extends BaseOtherResponse
                                         $trackingvalue->StatusDescription,
                                         $trackingvalue->appStatusDescription,
                                         $trackingvalue->ivrStatusDescription,
-                                        $trackingvalue->synthesisStatusDescription,
+                                        isset($trackingvalue->synthesisStatusDescription) ? $trackingvalue->synthesisStatusDescription : null,
                                         $trackingvalue->phase,
                                         $trackingvalue->officeId,
                                         $trackingvalue->status
