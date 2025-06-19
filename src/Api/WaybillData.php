@@ -19,6 +19,9 @@ class WaybillData
     /** @var WaybillDataContact */
     private $receiver;
 
+    /** @var WaybillDataInternational */
+    private $international;
+
     public function toArray()
     {
         $declaredArr = array();
@@ -30,7 +33,8 @@ class WaybillData
             'content' => $this->content,
             'services' => $this->services->toArray(),
             'sender' => $this->sender->toArray(),
-            'receiver' => $this->receiver->toArray()
+            'receiver' => $this->receiver->toArray(),
+            'international' => is_null($this->international) ? $this->international : $this->international->toArray()
         ];
     }
 
@@ -135,4 +139,23 @@ class WaybillData
         return $this;
     }
 
+    /**
+     * Get the value of international
+     */ 
+    public function getInternational()
+    {
+        return $this->international;
+    }
+
+    /**
+     * Set the value of international
+     *
+     * @return  self
+     */ 
+    public function setInternational($international)
+    {
+        $this->international = $international;
+
+        return $this;
+    }
 }

@@ -16,9 +16,8 @@ class NationsResponse extends BaseResponse
             if (property_exists($this, $key)) {
                 switch ($key) {
                     case 'countries':
+                        $valueArr = array();
                         foreach($value as $arrvalue) {
-                            $value = array();
-
                             $country = new Country(
                                 $arrvalue->iso4,
                                 $arrvalue->iso2,
@@ -30,8 +29,9 @@ class NationsResponse extends BaseResponse
                                 isset($arrvalue->news)?$arrvalue->news:null,
                                 $arrvalue->products
                             );
-                            array_push($value, $country);
+                            array_push($valueArr, $country);
                         }
+                        $value = $valueArr;
                         break;
                     case 'result':
                         $value = new Result(
