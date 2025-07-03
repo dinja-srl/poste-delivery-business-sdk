@@ -1,6 +1,6 @@
 # Poste Delivery Business PHP SDK
 
-This package is an unofficial simple PHP SDK for Poste Delivery Business Rest API services v.1.8.1.
+This package is an unofficial simple PHP SDK for Poste Delivery Business Rest API services v.1.8.5.
 
 ## Installing
 Install with composer
@@ -15,6 +15,10 @@ composer require dinja/poste-delivery-business-sdk
 
 ### Tracking
 *   Get Shipment Tracking
+
+### Digipod
+*   Digipod Request
+*   Digipod Download
 
 ## Usage
 ### Create Waybill
@@ -122,6 +126,34 @@ if ($response->hasError()) {
     echo $response->getCode();
 } else {
     $shipment = $response->getShipment();
+}
+```
+
+### Digipod Request
+```php
+$request = new Dinja\PosteDeliveryBusinessSDK\Request\DigipodReqRequest("poste_api_client_id", "poste_api_secret_id", "poste_api_scope", $debug);
+$request->setBarcode("TEST");
+
+$response = $request->call($debug);
+
+if ($response->hasError()) {
+    echo $response->getResult()->getErrorCode();
+} else {
+    $result = $response->getResult()->getResult();
+}
+```
+
+### Digipod Download
+```php
+$request = new Dinja\PosteDeliveryBusinessSDK\Request\DigipodDownloadRequest("poste_api_client_id", "poste_api_secret_id", "poste_api_scope", $debug);
+$request->setBarcode("TEST");
+
+$response = $request->call($debug);
+
+if ($response->getResult() == "KO") {
+    echo $response->getErrorCode();
+} else {
+    $digipodBase64 = $response->getAttached();
 }
 ```
 
