@@ -13,6 +13,12 @@ class WaybillDataServices
     /** @var string */
     private $paymentMode;
 
+    /** @var string */
+    private $officeCode;
+
+    /** @var string */
+    private $officeDescription;
+
     public function toArray()
     {
         $obj = array();
@@ -30,6 +36,12 @@ class WaybillDataServices
                 }
                 if($serviceCode == 'APT000946') {
                     $obj[$serviceCode]  = (object) [];
+                }
+                if($serviceCode == 'APT000947' || $serviceCode == 'APT000948' || $serviceCode == 'APT000949') {
+                    $obj[$serviceCode]  = [
+                        'node' => $this->officeCode,
+                        'name' => $this->officeDescription
+                    ];
                 }
             }
         }
@@ -100,4 +112,43 @@ class WaybillDataServices
         return $this;
     }
 
+    /**
+     * Get the value of officeCode
+     */ 
+    public function getOfficeCode()
+    {
+        return $this->officeCode;
+    }
+
+    /**
+     * Set the value of officeCode
+     *
+     * @return  self
+     */ 
+    public function setOfficeCode($officeCode)
+    {
+        $this->officeCode = $officeCode;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of officeDescription
+     */ 
+    public function getOfficeDescription()
+    {
+        return $this->officeDescription;
+    }
+
+    /**
+     * Set the value of officeDescription
+     *
+     * @return  self
+     */ 
+    public function setOfficeDescription($officeDescription)
+    {
+        $this->officeDescription = $officeDescription;
+
+        return $this;
+    }
 }
