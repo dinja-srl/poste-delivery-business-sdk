@@ -30,18 +30,13 @@ class WaybillDataServices
                         'amount' => $this->amount,
                         'paymentMode' => $this->paymentMode
                     ];
-                }
-                if($serviceCode == 'APT000945') {
-                    $obj[$serviceCode]  = (object) [];
-                }
-                if($serviceCode == 'APT000946') {
-                    $obj[$serviceCode]  = (object) [];
-                }
-                if($serviceCode == 'APT000947' || $serviceCode == 'APT000948' || $serviceCode == 'APT000949') {
+                } else if($serviceCode == 'APT000947' || $serviceCode == 'APT000948' || $serviceCode == 'APT000949') {
                     $obj[$serviceCode]  = [
                         'node' => $this->officeCode,
                         'name' => $this->officeDescription
                     ];
+                } else {
+                    $obj[$serviceCode]  = (object) [];
                 }
             }
         }

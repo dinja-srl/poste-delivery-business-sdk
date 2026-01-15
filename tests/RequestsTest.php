@@ -3,6 +3,8 @@
 namespace Tests;
 
 use Dinja\PosteDeliveryBusinessSDK\Request\WaybillRequest;
+use Dinja\PosteDeliveryBusinessSDK\Request\DigipodReqRequest;
+use Dinja\PosteDeliveryBusinessSDK\Request\DigipodDownloadRequest;
 
 use Dinja\PosteDeliveryBusinessSDK\Api\Waybill;
 use Dinja\PosteDeliveryBusinessSDK\Api\WaybillData;
@@ -16,10 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 class RequestsTest extends TestCase
 {
-    const poste_api_client_id = "TBD";
-    const poste_api_secret_id = "TBD";
-    const poste_api_cost_center_code = "TBD";
-    const poste_api_scope = "https://postemarketplace.onmicrosoft.com/d6a78063-5570-4a87-bbd7-07326e6855d1/.default";
+    const poste_api_client_id = "980a6661-cd8c-43c4-b6a1-d8f2a5593994";
+    const poste_api_secret_id = "3TW8Q~zWspadrQUNUKhFiu4eCoogittm~ZFK8bv6";
+    const poste_api_cost_center_code = "CDC-00073352";
+    const poste_api_scope = "api://8f0f2c58-19a8-45ef-9f9e-8bcb0acc7657/.default";
     const debug = true;
 
     public function testHasCorrectStructure()
@@ -116,6 +118,42 @@ class RequestsTest extends TestCase
         $this->assertInstanceOf('Dinja\PosteDeliveryBusinessSDK\Response\WaybillResponse', $response);
         $this->assertTrue(count($response->getWaybills()) > 0);
         $this->assertFalse($response->getWaybills()[0]->hasError());
+
+        return $response;
+    }
+
+    public function testCreateDigipodRequestSuccessful()
+    {
+        $request = new DigipodReqRequest(self::poste_api_client_id, self::poste_api_secret_id, self::poste_api_scope, self::debug);
+        $request->setBarcode("3UW0WTQ007580");
+
+        $response = $request->call(self::debug);
+
+        fwrite(STDERR, $response->getResult()->getResult());
+        fwrite(STDERR, $response->getResult()->getErrorCode());
+        fwrite(STDERR, $response->getResult()->getErrorDescription());
+
+        $this->assertInstanceOf('Dinja\PosteDeliveryBusinessSDK\Response\DigipodReqResponse', $response);
+        $this->assertFalse($response->hasError());
+
+        return $response;
+    }
+
+        public function testCreateDigipodDownloadSuccessful()
+    {
+        $request = new DigipodDownloadRequest(self::poste_api_client_id, self::poste_api_secret_id, self::poste_api_scope, self::debug);
+        $request->setBarcode("3UW0WTQ007580");
+
+        $response = $request->call(self::debug);
+
+        fwrite(STDERR, $response->getResult());
+        fwrite(STDERR, $response->getErrorCode());
+        fwrite(STDERR, $response->getErrorDescription());
+        fwrite(STDERR, $response->getFilename());
+        fwrite(STDERR, $response->getAttached());
+
+        $this->assertInstanceOf('Dinja\PosteDeliveryBusinessSDK\Response\DigipodDownloadResponse', $response);
+        $this->assertFalse($response->hasError());
 
         return $response;
     }

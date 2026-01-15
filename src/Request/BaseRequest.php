@@ -59,7 +59,7 @@ abstract class BaseRequest implements RequestInterface
             'headers'        => ['POSTE_clientID' => $this->clientId, 'Authorization' => $this->accessToken],
             'json' => $this->createRequestBody()
         ]);
-
+        fwrite(STDERR, $response->getBody());
         $response = json_decode($response->getBody());
 
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -90,6 +90,7 @@ abstract class BaseRequest implements RequestInterface
         if (count($emptyMandatory) > 0) {
             throw new RequestException(sprintf('Fields %s are mandatory', implode(', ', array_keys($emptyMandatory))));
         }
+        fwrite(STDERR,  json_encode($arr[0]));
 
         return $arr[0];
     }
