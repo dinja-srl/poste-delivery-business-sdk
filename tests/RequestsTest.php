@@ -18,10 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 class RequestsTest extends TestCase
 {
-    const poste_api_client_id = "980a6661-cd8c-43c4-b6a1-d8f2a5593994";
-    const poste_api_secret_id = "3TW8Q~zWspadrQUNUKhFiu4eCoogittm~ZFK8bv6";
-    const poste_api_cost_center_code = "CDC-00073352";
-    const poste_api_scope = "api://8f0f2c58-19a8-45ef-9f9e-8bcb0acc7657/.default";
+    const poste_api_client_id = "TBD";
+    const poste_api_secret_id = "TBD";
+    const poste_api_cost_center_code = "CDC-00000001";
+    const poste_api_scope = "api://XXX/.default";
     const debug = true;
 
     public function testHasCorrectStructure()
