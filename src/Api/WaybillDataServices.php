@@ -11,6 +11,9 @@ class WaybillDataServices
     private $amount;
 
     /** @var string */
+    private $insuranceAmount;
+
+    /** @var string */
     private $paymentMode;
 
     /** @var string */
@@ -29,6 +32,10 @@ class WaybillDataServices
                     $obj[$serviceCode]  = [
                         'amount' => $this->amount,
                         'paymentMode' => $this->paymentMode
+                    ];
+                } else if($serviceCode == 'APT000919' || $serviceCode == 'APT000955' || $serviceCode == 'APT000956') {
+                     $obj[$serviceCode]  = [
+                        'amount' => $this->insuranceAmount
                     ];
                 } else if($serviceCode == 'APT000947' || $serviceCode == 'APT000948' || $serviceCode == 'APT000949') {
                     $obj[$serviceCode]  = [
@@ -143,6 +150,26 @@ class WaybillDataServices
     public function setOfficeDescription($officeDescription)
     {
         $this->officeDescription = $officeDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of insuranceAmount
+     */ 
+    public function getInsuranceAmount()
+    {
+        return $this->insuranceAmount;
+    }
+
+    /**
+     * Set the value of insuranceAmount
+     *
+     * @return  self
+     */ 
+    public function setInsuranceAmount($insuranceAmount)
+    {
+        $this->insuranceAmount = $insuranceAmount;
 
         return $this;
     }
