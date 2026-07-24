@@ -38,6 +38,11 @@ class WaybillRequest extends BaseRequest
      */
     private $waybill;
 
+    /**
+     * @var Waybill[]
+     */
+    private $waybills = [];
+
 
     public function call($debug = FALSE)
     {
@@ -46,12 +51,20 @@ class WaybillRequest extends BaseRequest
 
     public function toArray()
     {
+        if (!empty($this->waybills)) {
+            $waybills = array_map(function (Waybill $waybill) {
+                return $waybill->toArray();
+            }, $this->waybills);
+        } else {
+            $waybills = [$this->waybill->toArray()];
+        }
+
         return array_filter([
             array_filter([
                 'costCenterCode' => $this->costCenterCode,
                 'shipmentDate' => $this->shipmentDate,
                 'partnerId' => $this->partnerId,
-                'waybills' => [$this->waybill->toArray()]], function ($v) { return !is_null($v); })
+                'waybills' => $waybills], function ($v) { return !is_null($v); })
         ], function ($v) {
             return !is_null($v);
         });
@@ -149,6 +162,30 @@ class WaybillRequest extends BaseRequest
     public function setWaybill(Waybill $waybill)
     {
         $this->waybill = $waybill;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of waybills
+     *
+     * @return  Waybill[]
+     */
+    public function getWaybills()
+    {
+        return $this->waybills;
+    }
+
+    /**
+     * Set multiple waybills for a single request (e.g. round trip: outbound + return)
+     *
+     * @param  Waybill[]  $waybills
+     *
+     * @return  self
+     */
+    public function setWaybills(array $waybills)
+    {
+        $this->waybills = $waybills;
 
         return $this;
     }

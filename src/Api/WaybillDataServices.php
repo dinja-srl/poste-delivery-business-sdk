@@ -22,6 +22,9 @@ class WaybillDataServices
     /** @var string */
     private $officeDescription;
 
+    /** @var string */
+    private $roundTrip;
+
     public function toArray()
     {
         $obj = array();
@@ -41,6 +44,10 @@ class WaybillDataServices
                     $obj[$serviceCode]  = [
                         'node' => $this->officeCode,
                         'name' => $this->officeDescription
+                    ];
+                } else if($serviceCode == 'APT000929') {
+                    $obj[$serviceCode]  = [
+                        'roundtrip' => $this->roundTrip
                     ];
                 } else {
                     $obj[$serviceCode]  = (object) [];
@@ -166,10 +173,30 @@ class WaybillDataServices
      * Set the value of insuranceAmount
      *
      * @return  self
-     */ 
+     */
     public function setInsuranceAmount($insuranceAmount)
     {
         $this->insuranceAmount = $insuranceAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of roundTrip
+     */
+    public function getRoundTrip()
+    {
+        return $this->roundTrip;
+    }
+
+    /**
+     * Set the value of roundTrip
+     *
+     * @return  self
+     */
+    public function setRoundTrip($roundTrip)
+    {
+        $this->roundTrip = $roundTrip;
 
         return $this;
     }
